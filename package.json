@@ -1,11 +1,11 @@
 {
   "name": "tailcompile",
-  "version": "0.2.0",
-  "main": "dist/main.js",
+  "version": "0.6.0",
+  "main": "index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/main.js",
+    "start": "node index.js",
     "dev": "ts-node src/main.ts",
     "dev:watch": "nodemon --exec ts-node src/main.ts",
     "prepublishOnly": "npm run build"
@@ -26,10 +26,14 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.20",
     "cheerio": "^1.0.0-rc.12",
     "nodemon": "^3.1.4",
     "tailwindcss": "^3.4.7",
     "ts-node": "^10.9.2"
+  },
+  "bin": {
+    "tailcompile": "index.js"
   }
 }
