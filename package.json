@@ -1,0 +1,36 @@
+{
+  "name": "tailcompile",
+  "version": "0.1.0",
+  "main": "dist/main.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "ts-node src/main.ts",
+    "dev:watch": "nodemon --exec ts-node src/main.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "compile",
+    "tailwind",
+    "compile_tailwind"
+  ],
+  "author": "Masoom Wahid",
+  "license": "MIT",
+  "description": "a library which helps u to compile tailwind into normal classes",
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@jyotirmay/tailwind-to-css": "^0.0.3",
+    "autoprefixer": "^10.4.20",
+    "cheerio": "^1.0.0-rc.12",
+    "nodemon": "^3.1.4",
+    "tailwindcss": "^3.4.7",
+    "ts-node": "^10.9.2"
+  }
+}
