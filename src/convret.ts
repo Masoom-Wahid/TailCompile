@@ -5,7 +5,7 @@ import { isValidTailwindClass } from "./compile";
 export const tailcompile = async (
   input: string,
   file_name: string,
-  prefix: string = ""
+  prefix: string = "class"
 ) => {
   const $ = load(input);
   $("head").append(`<link rel="stylesheet" href="./${file_name}.css">`);
