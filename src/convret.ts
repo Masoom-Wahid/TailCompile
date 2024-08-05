@@ -22,37 +22,40 @@ export const tailcompile = async (
     //console.log(classes)
 
     if (classes) {
-      const classList = classes.split(" ");
-      //console.log(`classList ${classList}`)
-      let tailwindClasses = "";
-      let customClasses = "";
+      // const classList = classes.split(" ");
+      // //console.log(`classList ${classList}`)
+      // let tailwindClasses = "";
+      // let customClasses = "";
 
-      for (let j = 0; j < classList.length; j++) {
-        let current = classList[j], valid;
-        //console.log(`current : ${current}`)
-        let special = current.includes(":");
-        if (special) {
-          let parts = current.split(":");
-          valid = await isValidTailwindClass(parts[parts.length - 1]);
-        } else {
-          valid = await isValidTailwindClass(current);
-        }
-        if (valid.success) tailwindClasses += current + " ";
-        else if (!special) customClasses += current + " ";
-      }
+      // for (let j = 0; j < classList.length; j++) {
 
-      const newClassName = prefix + nanoid();
+      //   let current = classList[j], valid;
+      //   //console.log(`current : ${current}`)
+      //   let  = isValidTailwindClass(current);
+
+      //   let special = current.includes(":");
+      //   if (special) {
+      //     let parts = current.split(":");
+      //     valid = await isValidTailwindClass(parts[parts.length - 1]);
+      //   } else {
+      //     valid = await isValidTailwindClass(current);
+      //   }
+      //   if (valid.success) tailwindClasses += current + " ";
+      //   else if (!special) customClasses += current + " ";
+      // }
+
+      const newClassName = `${prefix}${i}`;
 
 
 
-      let generated = await isValidTailwindClass(tailwindClasses, {
+      let generated = await isValidTailwindClass(classes, {
         outputClass: newClassName,
         plugins: {
           typography: true,
         },
       });
       if (generated.success) css += generated.css + "\n";
-      $(body[i]).attr("class", newClassName + " " + customClasses);
+      $(body[i]).attr("class", newClassName + " " + "");
     }
   }
 
