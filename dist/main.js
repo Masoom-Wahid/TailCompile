@@ -62,27 +62,22 @@ const get_file_name = (file_path) => {
 };
 const main = () => {
     let args = process.argv.slice(2);
-    // let file_name: string = '';
-    // let dir_path: string = '';
-    // if (args.length >= 2) {
-    //   let [file_name, dir_path] = args;
-    // } else {
-    //   console.log("usage: tailcompile [.html] [dir]\nFirst give the html file and then the dir where it should be compiled to");
-    //   return
-    // }
-    let file_name = "/home/masoomwahid/dev/tailcompile/widget.html";
-    // console.log(file_name);
-    // console.log(dir_path)
-    // let only_file_name = get_file_name(file_name)
-    // console.log(`only_file_name ${only_file_name}`)
-    fs.readFile(file_name, 'utf8', (err, data) => __awaiter(void 0, void 0, void 0, function* () {
+    if (args.length < 2) {
+        console.log("usage: tailcompile [.html] [dir]\nFirst give the html file and then the dir where it should be compiled to");
+        return;
+    }
+    // let file_name: string = "/home/masoomwahid/dev/tailcompile/widget.html";
+    // console.log(args)
+    // // let only_file_name = get_file_name(file_name)
+    let only_file_name = get_file_name(args[0]);
+    // // console.log(`only_file_name ${only_file_name}`)
+    fs.readFile(args[0], 'utf8', (err, data) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
             console.error(err);
         }
         else {
-            const res = yield (0, convret_1.tailcompile)(data, "index");
-            // console.log(res);
-            write_html_and_css("/home/masoomwahid/dev/tailcompile/dummy", "output", res.html, res.css);
+            const res = yield (0, convret_1.tailcompile)(data, only_file_name);
+            write_html_and_css(args[1], only_file_name, res.html, res.css);
         }
     }));
 };

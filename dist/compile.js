@@ -20,7 +20,6 @@ const autoprefixer_1 = __importDefault(require("autoprefixer"));
 const isValidTailwindClass = (str, options) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const css = (options === null || options === void 0 ? void 0 : options.outputClass) ? `.${options === null || options === void 0 ? void 0 : options.outputClass} {@apply ${str}}` : `.cls{@apply ${str}}`;
-    //console.log(`css was ${css}`)
     const PLUGINS = [];
     if ((_a = options === null || options === void 0 ? void 0 : options.plugins) === null || _a === void 0 ? void 0 : _a.typography)
         PLUGINS.push(typography_1.default);

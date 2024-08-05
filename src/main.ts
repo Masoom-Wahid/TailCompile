@@ -39,33 +39,28 @@ const get_file_name = (file_path: string): string => {
 
 const main = () => {
   let args = process.argv.slice(2);
-  // let file_name: string = '';
-  // let dir_path: string = '';
-  // if (args.length >= 2) {
-  //   let [file_name, dir_path] = args;
-  // } else {
-  //   console.log("usage: tailcompile [.html] [dir]\nFirst give the html file and then the dir where it should be compiled to");
-  //   return
-  // }
-  let file_name: string = "/home/masoomwahid/dev/tailcompile/widget.html";
+  if (args.length < 2) {
+    console.log("usage: tailcompile [.html] [dir]\nFirst give the html file and then the dir where it should be compiled to");
+    return
+  }
+  // let file_name: string = "/home/masoomwahid/dev/tailcompile/widget.html";
+
+  // console.log(args)
 
 
-  // console.log(file_name);
-  // console.log(dir_path)
+  // // let only_file_name = get_file_name(file_name)
+  let only_file_name = get_file_name(args[0]);
 
-  // let only_file_name = get_file_name(file_name)
+  // // console.log(`only_file_name ${only_file_name}`)
 
-  // console.log(`only_file_name ${only_file_name}`)
-
-  fs.readFile(file_name, 'utf8', async (err: any, data: string) => {
+  fs.readFile(args[0], 'utf8', async (err: any, data: string) => {
     if (err) {
       console.error(err);
     } else {
-      const res = await tailcompile(data, "index");
-      // console.log(res);
+      const res = await tailcompile(data, only_file_name);
       write_html_and_css(
-        "/home/masoomwahid/dev/tailcompile/dummy",
-        "output",
+        args[1],
+        only_file_name,
         res.html,
         res.css
       )

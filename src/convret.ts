@@ -4,11 +4,11 @@ import { isValidTailwindClass } from "./compile";
 
 export const tailcompile = async (
   input: string,
-  file_name?: string | undefined,
+  file_name: string,
   prefix: string = ""
 ) => {
   const $ = load(input);
-  $("head").append(`<link rel="stylesheet" href="./output.css">`);
+  $("head").append(`<link rel="stylesheet" href="./${file_name}.css">`);
 
   let css = ``;
   let html = ``;

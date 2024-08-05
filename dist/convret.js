@@ -15,7 +15,7 @@ const cheerio_1 = require("cheerio");
 const compile_1 = require("./compile");
 const tailcompile = (input_1, file_name_1, ...args_1) => __awaiter(void 0, [input_1, file_name_1, ...args_1], void 0, function* (input, file_name, prefix = "") {
     const $ = (0, cheerio_1.load)(input);
-    $("head").append(`<link rel="stylesheet" href="./output.css">`);
+    $("head").append(`<link rel="stylesheet" href="./${file_name}.css">`);
     let css = ``;
     let html = ``;
     let body = $("body *");
