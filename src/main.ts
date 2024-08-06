@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from "path";
-import { isValidTailwindClass } from "./compile";
+import { compileToTailwind } from "./compile";
 import { tailcompile } from "./convret";
 
 

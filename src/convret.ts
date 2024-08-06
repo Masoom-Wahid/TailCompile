@@ -1,6 +1,11 @@
 import { nanoid } from "nanoid";
 import { load } from "cheerio";
-import { isValidTailwindClass } from "./compile";
+import { compileToTailwind } from "./compile";
+import tailwindcss from 'tailwindcss';
+import postcss from 'postcss';
+import typography from "@tailwindcss/typography"
+import autoprefixer from 'autoprefixer';
+
 
 export const tailcompile = async (
   input: string,
@@ -14,46 +19,33 @@ export const tailcompile = async (
   let html = ``;
 
   let body = $("body *");
+
+  const PLUGINS: any[] = []
+  PLUGINS.push(typography)
+
+  const processor = postcss([
+    tailwindcss({
+      darkMode: "class",
+      content: ["*"],
+      theme: {
+        extend: {},
+      },
+      config: {
+        mode: "jit",
+      },
+      plugins: PLUGINS
+    }),
+    autoprefixer,
+  ]);
+
+
+
   for (let i = 0; i < body.length; i++) {
     // Loop Through Every Body Part
-    //console.log(`body[${i}] is ${$(body[i]).attr("class")}`);
     const classes = $(body[i]).attr("class");
-
-    //console.log(classes)
-
     if (classes) {
-      // const classList = classes.split(" ");
-      // //console.log(`classList ${classList}`)
-      // let tailwindClasses = "";
-      // let customClasses = "";
-
-      // for (let j = 0; j < classList.length; j++) {
-
-      //   let current = classList[j], valid;
-      //   //console.log(`current : ${current}`)
-      //   let  = isValidTailwindClass(current);
-
-      //   let special = current.includes(":");
-      //   if (special) {
-      //     let parts = current.split(":");
-      //     valid = await isValidTailwindClass(parts[parts.length - 1]);
-      //   } else {
-      //     valid = await isValidTailwindClass(current);
-      //   }
-      //   if (valid.success) tailwindClasses += current + " ";
-      //   else if (!special) customClasses += current + " ";
-      // }
-
       const newClassName = `${prefix}${i}`;
-
-
-
-      let generated = await isValidTailwindClass(classes, {
-        outputClass: newClassName,
-        plugins: {
-          typography: true,
-        },
-      });
+      let generated = await compileToTailwind(processor, classes, newClassName);
       if (generated.success) css += generated.css + "\n";
       $(body[i]).attr("class", newClassName + " " + "");
     }
