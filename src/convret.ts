@@ -46,7 +46,14 @@ export const tailcompile = async (
     if (classes) {
       const newClassName = `${prefix}${i}`;
       let generated = await compileToTailwind(processor, classes, newClassName);
-      if (generated.success) css += generated.css + "\n";
+      if (generated.success) {
+        css += generated.css + "\n"
+      } else {
+        console.warn(
+          `Element of 'class${i}' is not valid Tailwind\nContents Of Which Is:\n${classes}
+          `
+        )
+      }
       $(body[i]).attr("class", newClassName + " " + "");
     }
   }
